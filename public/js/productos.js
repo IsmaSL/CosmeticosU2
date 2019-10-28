@@ -41,7 +41,7 @@ function muestraSelect(valueSelect){
 
 function filtrado(selectFiltro,linea,tipo){
     if (selectFiltro == 1) {
-        var url = "https://cosmeticosu2.dev/api/productos/linea";
+        var url = "/api/productos/linea";
         var queryString = "linea="+linea;
         llamadasParciales(url, queryString,"POST");
     }else if(selectFiltro == 2){
@@ -67,7 +67,7 @@ function llamaBuscaProductos() {
     pro.style.display="none";
     welcome.style.display = "none";
     divDesliza.style.display = "flex";
-    var url = "https://cosmeticosu2.dev/api/productos";
+    var url = "/api/productos";
     llamadasParciales(url,"","GET");
 }
 
@@ -204,7 +204,7 @@ function registraProductos(){
 }
 
 function registraProducto(){
-    var sURL = "https://cosmeticosu2.dev/api/productos/registrar";
+    var sURL = "/api/productos/registrar";
 
     var formData = new FormData($("#frmRegistraProducto")[0]);
     formData.append('txtNombre', $("#txtNombreProducto").val());
