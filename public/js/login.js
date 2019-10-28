@@ -102,6 +102,7 @@ function procesaLogin(textoRespuesta){
 	if(datos.tipoUsuario=='A'){
     	var regProd = document.getElementById('regProd');
     	regProd.style.display = "flex";
+        sessionStorage.setItem("usuario", datos.cuentaUsuario);
     }
 	//Guarda en la sessionStorage
 	sessionStorage.setItem("nombre", datos.nombre);

@@ -5,6 +5,7 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <link href="https://fonts.googleapis.com/css?family=Dancing+Script&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Kalam&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Montserrat:600&display=swap" rel="stylesheet">
@@ -17,6 +18,7 @@
     <link rel="stylesheet" href="{{asset('/css/app.css')}}">
     <link rel="stylesheet" href="{{asset('/css/webfonts/all.css')}}">
     <link rel="stylesheet" href="{{asset('/css/registroProductos.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('/js/jslib/jquery-ui/jquery-ui.css')}}">
 
     <!--<script src="https://kit.fontawesome.com/c2f3d34cf5.js" crossorigin="anonymous"></script>-->
     <title>@yield('titulo')</title>

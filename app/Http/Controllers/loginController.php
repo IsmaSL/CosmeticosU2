@@ -32,6 +32,7 @@ class loginController extends Controller{
                             "nombre" => $objetoAdministrador->getNombre(),
                             "primApellido" => $objetoAdministrador->getPrimApellido(),
                             "seguApellido" => $objetoAdministrador->getSeguApellido(),
+                            "cuentaUsuario" => $objetoAdministrador->getCuentaUsuario(),
                             "tipoUsuario" => self::TIPO_ADMIN
                         ],200);
                     }else{

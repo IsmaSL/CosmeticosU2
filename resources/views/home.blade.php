@@ -72,11 +72,12 @@
                 <div id="mensajeRegistro" class="mensajeRegistro" style="display: none">
                     <h5>Se ha creado tu cuenta con &eacute;xito, ¡Ahora puedes iniciar sesi&oacute;n!</h5>
                 </div>
-                <div class="contenedorIcono">
-                    <span id="ico" class="span"></span>
-                    <h5>Reg&iacute;strate</h5>
-                </div>
+
                 <div class="contenedorRegistro">
+                    <div class="contenedorIcono">
+                        <span id="ico" class="span"></span>
+                        <h5>Reg&iacute;strate</h5>
+                    </div>
                     <form onsubmit="registraUsuario();return false;">
                         <div class="primeraParte">
                             <input type="text" id="txtNombre" placeholder="Nombre(s)" required>
@@ -101,65 +102,86 @@
 
             <!-- CONTENEDOR DEL FORMULARIO PARA REGISTRAR UN NUEVO PRODUCTO -->
             <section id="regProducto" style="display: none;">
-                <div id="mensajeRegistroP" class="mensajeRegistro mensajeRegistroP" style="display: none">
-                    <h5>Se ha agregado con &eacute;xito el producto.</h5>
+                <div id="mensajeErrores" class="mensajeRegistroP" style="display: none">
+                    <h2>¡Vaya hay problemas con el formulario!</h2>
+                    <div id="contenedorErrores">
+                    </div>
                 </div>
-                <div>
-                    <h2 id="title-regis" align="center">Registrar nuevo producto</h2>
-                </div>
-                <form onsubmit="registraProducto();return false;">
+
+                <form id="frmRegistraProducto" enctype="multipart/form-data" onsubmit="registraProducto();">
+
                     <div class="formPro">
                         <div class="parte1">
+                            <div>
+                                <h2 id="title-regis" align="center">Registrar nuevo producto</h2>
+                            </div>
                             <div class="sectionBox">
                                 <label>Nombre:</label>
-                                <input type="text" class="inputBox" placeholder="Nombre" required>
+                                <input id="txtNombreProducto" type="text" class="inputBox" placeholder="Nombre" required>
                             </div>
                             <div class="sectionBox">
                                 <label>Descripci&oacute;n:</label>
-                                <input type="text" class="inputBox" placeholder="Descripci&oacute;n" required>
+                                <textarea id="txtDescripcion" class="inputBox" rows="5" cols="25" required>
+                                </textarea>
                             </div>
                             <div class="sectionBox">
                                 <label>Imagen:</label>
-                                <input type="file" accept="image/png, .jpeg, .jpg, image/gif" class="inputBox" required>
+                                <input id="imagen" name="imagen" type="file" accept="image/png, .jpeg, .jpg, image/gif"                                     required>
+                                <img id="imagenMuestra" width="235px" height="145px">
                             </div>
-                            <div class="sectionBox">
-                                <label>Color:</label>
-                                <input type="text" class="inputBox" placeholder="Color" required>
-                            </div>
+
                         </div>
                         <div class="parte2">
-                            <div class="sectionBox">
+
+                            <div class="sectionBox select">
                                 <label>Linea:</label>
-                                <select default="Seleccionar" required>
-                                    <option>Maquillaje</option>
-                                    <option>Perfumeria</option>
-                                    <option>Cuidado personal</option>
+                                <select id="txtLinea" default="Seleccionar" required>
+                                    <option value="1">Maquillaje</option>
+                                    <option value="2">Perfumeria</option>
+                                    <option value="3">Cuidado personal</option>
                                 </select>
                             </div>
-                            <div class="sectionBox">
+                            <div class="sectionBox select">
                                 <label>Tipo:</label>
-                                <select default="Seleccionar" required>
-                                    <option>Normal</option>
-                                    <option>Hipo-alerg&eacute;rgenico</option>
-                                    <option>Piel seca</option>
+                                <select id="txtTipo" default="Seleccionar" required>
+                                    <option value="1">Normal</option>
+                                    <option value="2">Hipo-alerg&eacute;rgenico</option>
+                                    <option value="3">Piel seca</option>
                                 </select>
+                            </div>
+                            <div id="cajaColor" style="display: flex" class="sectionBox">
+                                <label>Color:</label>
+                                <input id="txtColor" type="text" class="inputBox" placeholder="Color">
                             </div>
                             <div class="sectionBox">
                                 <label>Stock:</label>
-                                <input type="number" class="inputBox" placeholder="Stock" min="1" required>
+                                <input id="numStock" type="number" class="inputBox" placeholder="Stock" min="1" required>
                             </div>
                             <div class="sectionBox">
                                 <label>Precio:</label>
-                                <input type="number" class="inputBox" placeholder="Precio" min="1" required>
+                                <input id="numPrecio" type="number" class="inputBox" placeholder="Precio" min="1" required>
                             </div>
+                            <div class="botonForm">
+                                <input id="btnEnviar" type="submit" value="Registrar" class="regBoton" >
+                                <div class="lds-roller" id="loaderProductos" style="display: none;">
+                                    <div></div>
+                                    <div></div>
+                                    <div></div>
+                                    <div></div>
+                                    <div></div>
+                                    <div></div>
+                                    <div></div>
+                                    <div></div>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
-                    <center>
-                    <div class="botonForm">
-                        <input type="submit" value="Registrar" class="regBoton" >
-                    </div>
-                    </center>
                 </form>
+
+                <div id="mensajeExito" style="display: none">
+                    <h3>¡Se ha agregado con exito el artículo!</h3>
+                </div>
             </section>
 
             <!-- CONTENEDOR DE BIEVENIDA TRAS LOGIN -->

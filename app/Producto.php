@@ -16,6 +16,9 @@ class Producto extends Model{
     private $precio;
     private $stock;
 
+    protected $guarded = ["idProducto"];
+    protected $primaryKey = 'idProducto';
+
     public function getProductos(){
         $j = 0;
         $i = 0;
@@ -87,6 +90,25 @@ class Producto extends Model{
             }
         }
         return $arregloProductos;
+    }
+
+    public function registrarProducto(){
+        $producto = Producto::create([
+            "idLinea" => $this->getLinea(),
+            "idTipo" => $this->getTipo(),
+            "registradoPor" => $this->getRegistradoPor(),
+            "nombre" => $this->getNombre(),
+            "descripcion" => $this->getDescripcion(),
+            "color" => $this->getColor(),
+            "imagen" => $this->getImagen(),
+            "precio" => $this->getPrecio(),
+            "stock" => $this->getStock(),
+        ]);
+        if($producto){
+            return true;
+        }else{
+            return false;
+        }
     }
 
     public function linea(){

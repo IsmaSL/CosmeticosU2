@@ -13,6 +13,7 @@ class Administrador extends Usuario{
             parent::setNombre($datosAdministrador['nombre']);
             parent::setPrimApellido($datosAdministrador['primApellido']);
             parent::setSeguApellido($datosAdministrador['seguApellido']);
+            parent::setCuentaUsuario($datosAdministrador['cuentaUsuario']);
             return true;
         }else{
             return false;
