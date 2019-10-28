@@ -103,6 +103,7 @@
         if(datos.tipoUsuario=='A'){
             var regProd = $('#regProd');
             regProd.css("display","flex");
+            sessionStorage.setItem("usuario", datos.cuentaUsuario);
         }
         //Guarda en la sessionStorage
         sessionStorage.setItem("nombre", datos.nombre);

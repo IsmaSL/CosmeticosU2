@@ -1,3 +1,30 @@
+$(document).ready(function(){
+    $( "#mensajeExito" ).dialog({
+        autoOpen: false,
+        show: {
+            effect: "puff",
+            duration: 500
+        },
+        hide: {
+            effect: "explode",
+            duration: 1000
+        }
+        , modal: true
+    });
+
+    $("#txtLinea").change(function(){
+        if($("#txtLinea").val() !== "1"){
+            $("#cajaColor").css('display','none');
+        }else{
+            $("#cajaColor").css('display','flex');
+        }
+    });
+
+    $("#imagen").change(function() {
+        previzualizacionImagen(this);
+    });
+});
+
 function muestraSelect(valueSelect){
     var divSelectLineas = document.getElementById("lineas");
     var divSelecTipos = document.getElementById("tipos");
@@ -14,7 +41,7 @@ function muestraSelect(valueSelect){
 
 function filtrado(selectFiltro,linea,tipo){
     if (selectFiltro == 1) {
-        var url = "https://cosmeticosu2.dev/api/productos/linea";
+        var url = "/api/productos/linea";
         var queryString = "linea="+linea;
         llamadasParciales(url, queryString,"POST");
     }else if(selectFiltro == 2){
@@ -40,7 +67,7 @@ function llamaBuscaProductos() {
     pro.style.display="none";
     welcome.style.display = "none";
     divDesliza.style.display = "flex";
-    var url = "https://cosmeticosu2.dev/api/productos";
+    var url = "/api/productos";
     llamadasParciales(url,"","GET");
 }
 
@@ -153,7 +180,7 @@ function pintaProductos(respuesta) {
 
 function registraProductos(){
     var divDesliza = document.getElementById("divDesliza");
-    var divMensaje = document.getElementById("mensajeRegistroP");
+    var divMensaje = document.getElementById("mensajeErrores");
     var divTexto = document.getElementById("divTexto");
     var sectionLogin=document.getElementById("sectionLogin");
     var sectionRegistrarse=document.getElementById("sectionRegistrarse");
@@ -177,6 +204,73 @@ function registraProductos(){
 }
 
 function registraProducto(){
-    var divMensaje = document.getElementById("mensajeRegistroP");
-    divMensaje.style.display = "flex";
+    var sURL = "/api/productos/registrar";
+
+    var formData = new FormData($("#frmRegistraProducto")[0]);
+    formData.append('txtNombre', $("#txtNombreProducto").val());
+    formData.append('txtDescripcion', $("#txtDescripcion").val());
+    formData.append('txtColor', $("#txtColor").val());
+    formData.append('txtLinea', $("#txtLinea").val());
+    formData.append('txtTipo', $("#txtTipo").val());
+    formData.append('numStock', $("#numStock").val());
+    formData.append('numPrecio', $("#numPrecio").val());
+    formData.append('usuario', sessionStorage.getItem('usuario'));
+    event.preventDefault();
+    $('#loaderProductos').css('display','flex');
+
+    $.ajax({
+        url: sURL,
+        type: "POST",
+        data: formData,
+        cache: false,
+        contentType: false,
+        processData: false,
+        success: function (oDatos) {
+            var divMensajeError = $('#mensajeErrores');
+            divMensajeError.css('display', 'none');
+            $('#imagenMuestra').css('display','none');
+            $('#loaderProductos').css('display','none');
+            $("#frmRegistraProducto")[0].reset();
+            $("#mensajeExito").dialog("option", "width", 300);
+            $("#mensajeExito").dialog( "open" );
+        },
+        error : function (xhr){
+            if(xhr.status === 422){
+                creaMensajeError(xhr.responseJSON.errors);
+                $('#loaderProductos').css('display','none');
+            }else{
+                alert("Error al invocar al servidor, intente posteriormente");
+                $('#loaderProductos').css('display','none');
+            }
+
+        }
+    });
+}
+
+function previzualizacionImagen(input){
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+        reader.onload = function(e) {
+            // Asignamos el atributo src a la tag de imagen
+            $('#imagenMuestra').attr('src', e.target.result);
+        };
+        reader.readAsDataURL(input.files[0]);
+        $('#imagenMuestra').css('display','flex');
+    }
+}
+
+function creaMensajeError(errores){
+    var divMensajeError = $('#mensajeErrores');
+    var contenedorErrores = $('#contenedorErrores');
+    if(contenedorErrores.children().length){
+        contenedorErrores.empty();
+    }
+    var ul = $('<ul/>');
+    $.each(errores, function(llave, valor){
+        ul.append($('<li/>',{
+            'text' : valor[0]
+        }));
+    });
+    divMensajeError.children('div').append(ul);
+    divMensajeError.css('display','flex');
 }
