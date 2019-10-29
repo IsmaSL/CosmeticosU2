@@ -227,7 +227,7 @@
                         <option value="3">Piel seca</option>
                     </select>
                 </div>
-                <div class="lds-roller" id="loaderProductos" style="display: none;">
+                <div class="lds-roller" id="loaderProductos2" style="display: none;">
                     <div></div>
                     <div></div>
                     <div></div>

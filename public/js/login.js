@@ -7,8 +7,7 @@
         var regProducto = $("#regProducto");
         var divParentAbsoluto = $('#parentAbsoluto');
         var welcome = $('#welcome');
-        //aquí debe poner el login en display:none y el welcome en block
-        //ya está el json cargado con la información, por si necesitas sacar algo
+
         if (divTexto.css("display") === "flex" || divParentAbsoluto.css("display") === "flex" ||
             regProducto.css("display") === "flex" || sectionRegistrarse.css("display") === "flex" ||
             welcome.css("display") === "flex") {
