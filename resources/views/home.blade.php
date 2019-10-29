@@ -202,43 +202,24 @@
 
     <div style="display: none;" class="parentAbsoluto" id="parentAbsoluto">
         <div class="filtrado">
-            <form onsubmit="filtrado(selectFiltro.value, selectLinea.value, selectTipo.value); return false;">
-                <span>Filtrar productos por: </span>
-                <select id="selectFiltro" onChange="muestraSelect(this.value)">
-                    <option disabled selected>Seleccione una opci&oacute;n</option>
-                    <option value="1">Linea</option>
-                    <option value="2">Tipo</option>
-                </select>
 
-                <div id="lineas" class="lineas" style="display: none;">
-                    <span>Lineas: </span>
-                    <select id="selectLinea">
-                        <option value="1">Maquillaje</option>
-                        <option value="2">Perfumeria</option>
-                        <option value="3">Cuidado corporal</option>
-                    </select>
-                </div>
+        </div>
 
-                <div id="tipos" class="tipos" style="display: none;">
-                    <span>Tipos: </span>
-                    <select id="selectTipo">
-                        <option value="1">Normal</option>
-                        <option value="2">Hipo-alerg&eacutergenico</option>
-                        <option value="3">Piel seca</option>
-                    </select>
-                </div>
-                <div class="lds-roller" id="loaderProductos2" style="display: none;">
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                </div>
-                <input id="inputFiltra" style="display: none" type="submit" value="buscar">
-            </form>
+        <div id="contenedorDataTable" class="contenedorTabla" >
+                <h3>Nuestros productos</h3>
+                <table id="tblProductos" class="table table-striped table-bordered" style="width:100%">
+                    <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Linea</th>
+                        <th>Tipo</th>
+                        <th>Color</th>
+                        <th>Preview</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
         </div>
     </div>
 @endsection

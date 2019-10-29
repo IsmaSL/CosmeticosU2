@@ -12,11 +12,32 @@ use Illuminate\Support\Facades\Storage;
 class productosController extends Controller{
 
     public function buscarTodos(){
+        $sJsonRet = "";
         $objetoProducto = new Producto();
+
         $arregloEncontrados = $objetoProducto->getProductos();
-        return response()->json([
-            "arregloProductos" => $arregloEncontrados
-        ],200);
+        $productosEncontrados = sizeof($arregloEncontrados);
+        $sJsonRet ='{
+			"data": [
+		';
+        for($i=0; $i<$productosEncontrados; $i++){
+            if ($arregloEncontrados[$i][6] == null){
+                $arregloEncontrados[$i][6] = "Este producto no cuenta con un color especificado";
+            }
+            $sJsonRet = $sJsonRet.'{
+					"nombre":   "'.$arregloEncontrados[$i][4].'", 
+					"linea":    "'.$arregloEncontrados[$i][1].'",
+					"tipo":     "'.$arregloEncontrados[$i][2].'",
+					"color":    "'.$arregloEncontrados[$i][6].'",
+					"imagen":   "'.$arregloEncontrados[$i][7].'"
+            },';
+        }
+        $sJsonRet = substr($sJsonRet,0, strlen($sJsonRet)-1);
+        $sJsonRet = $sJsonRet.'
+			]
+		}';
+
+        echo $sJsonRet;
     }
 
     public function buscarPorTipo(Request $request){

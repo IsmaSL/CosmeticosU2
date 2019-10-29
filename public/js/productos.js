@@ -23,9 +23,72 @@ $(document).ready(function(){
     $("#imagen").change(function() {
         previzualizacionImagen(this);
     });
+
 });
 
-function muestraSelect(valueSelect){
+function llamaBuscaProductos() {
+    var sectionRegistrarse = $('#sectionRegistrarse');
+    sectionRegistrarse.hide();
+    var divDesliza = $('#divDesliza');
+    var divTexto = $('#divTexto');
+    divTexto.hide();
+    var login = $('#sectionLogin');
+    login.hide();
+    var divParentAbsoluto = $('#parentAbsoluto');
+    divParentAbsoluto.show();
+    var welcome = $('#welcome');
+    var pro = $('#regProducto');
+    pro.hide();
+    welcome.hide();
+    divDesliza.show();
+    //var url = "api/productos";
+    //llamadasParciales(url,"");
+    pintaTablaProductos();
+}
+
+function pintaTablaProductos() {
+    var url = "api/productos";
+    var tblProductos = $('#tblProductos');
+    tblProductos.DataTable().destroy();
+    tblProductos = $('#tblProductos').DataTable({
+        "ajax": url,
+        "type": "GET",
+        "lengthMenu": [ [4, 8], [4, 8] ],
+        "language": {
+            "lengthMenu": "Mostrar _MENU_ registros",
+            "zeroRecords": "No se encontrarón resultados",
+            "info": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+            "infoEmpty": "Mostrando registros del0 al 0 de un total de 0 registros",
+            "infoFiltered": "(Filtrado de un total de _MAX_ registros)",
+            "sSearch": "Buscar",
+            "oPaginate": {
+                "sFirst": "Primero",
+                "sLast": "Ultimo",
+                "sNext": "Siguiente",
+                "sPrevious": "Anterior",
+            },
+            "sProcessing":"Procesando ...",
+        },
+        "columns": [
+            { data: "nombre" },
+            { data: "linea" },
+            { data: "tipo" },
+            { data: "color"},
+            {
+                data: "imagen",
+                render: function(data, type, row){
+                    var sRet ="";
+                    sRet =
+                    '<center><img width="100em" heigth="100em" src="'+data+'"></center>';
+                    return sRet;
+                }
+            }
+        ]
+    });
+
+}
+
+/*function muestraSelect(valueSelect){
     var divSelectLineas = $('#lineas');
     var divSelecTipos = $('#tipos');
     var inputFiltra = $('#inputFiltra');
@@ -51,25 +114,6 @@ function filtrado(selectFiltro,linea,tipo){
         console.log(queryString);
         llamadasParciales(url, queryString,2);
     }
-}
-
-function llamaBuscaProductos() {
-    var sectionRegistrarse = $('#sectionRegistrarse');
-    sectionRegistrarse.hide();
-    var divDesliza = $('#divDesliza');
-    var divTexto = $('#divTexto');
-    divTexto.hide();
-    var login = $('#sectionLogin');
-    login.hide();
-    var divParentAbsoluto = $('#parentAbsoluto');
-    divParentAbsoluto.show();
-    var welcome = $('#welcome');
-    var pro = $('#regProducto');
-    pro.hide();
-    welcome.hide();
-    divDesliza.show();
-    var url = "api/productos";
-    llamadasParciales(url,"");
 }
 
 function llamadasParciales(url,queryString,numero){
@@ -188,6 +232,31 @@ function pintaProductos(datos) {
                 btnCompra.text(btnCompraTexto);
             }
         }
+    }
+}*/
+
+function registraProductos(){
+    var divDesliza = $("#divDesliza");
+    var divMensaje = $("#mensajeRegistroP");
+    var divTexto = $("#divTexto");
+    var sectionLogin=$("#sectionLogin");
+    var sectionRegistrarse=$("#sectionRegistrarse");
+    var regProducto = $("#regProducto");
+    var divParentAbsoluto = $('#parentAbsoluto');
+    var welcome = $('#welcome');
+    divMensaje.hide();
+    //aquí debe poner el login en display:none y el welcome en block
+    //ya está el json cargado con la información, por si necesitas sacar algo
+    if(divTexto.is(':visible')|| divParentAbsoluto.is(':visible') ||
+        sectionLogin.is(':visible') || sectionRegistrarse.is(':visible') ||
+        welcome.is(':visible')){
+        welcome.hide();
+        divTexto.hide();
+        sectionLogin.hide();
+        divParentAbsoluto.hide();
+        sectionRegistrarse.hide();
+        divDesliza.hide();
+        regProducto.show();
     }
 }
 

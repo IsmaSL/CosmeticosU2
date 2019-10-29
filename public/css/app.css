@@ -3,7 +3,6 @@
 * {
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
 }
 html,
 body {
@@ -172,6 +171,15 @@ nav a {
     -moz-animation: entradaNav 0.5s forwards;
     -webkit-transform: translateX(-100rem);
     -webkit-animation: entradaNav 0.5s forwards;
+}
+nav a:hover{
+    color: white;
+    cursor: pointer;
+    padding-bottom: 0.2em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
 }
 .animaLogo {
     -webkit-animation-name: logoAnimacion;

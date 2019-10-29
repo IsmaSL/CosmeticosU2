@@ -1,0 +1,25 @@
+.contenedorTabla{
+    margin: 0.3em;
+    background-color: white;
+    border-radius: .3em;
+    padding: 0.5em;
+    width: 90%;
+    justify-content: center;
+    text-align: center;
+}
+.contenedorTabla h3{
+    font-weight: bold;
+}
+
+#example{
+    background-color: white;
+    border-radius: 0.2em;
+    width: 90%;
+}
+
+input[type="search"]:hover{
+    cursor: text;
+}
+input[type="search"]{
+    font-weight: normal;
+}
