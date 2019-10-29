@@ -38,34 +38,27 @@
         }
     }
 
-    function llamaLogin(cuentaUsuario, contrasenia){
-        var request = new XMLHttpRequest();
+    function llamaLogin(cuentaUsuario, contrasenia) {
+        $('#loaderLogin').css('display','flex');
         var url = "/api/login";
-        var sQueryString="";
-
-        if (cuentaUsuario=="" || contrasenia==""){
-            alert("Faltan datos para el ingreso");
-        }else{
-            sQueryString="cuentaUsuario="+cuentaUsuario+"&contrasenia="+contrasenia;
-            request.onreadystatechange=function() {
-                if (request.readyState === 4 && request.status === 200) {
-                    loaderLogin.style.display = "none";
-                    procesaLogin(request.responseText);
-                }else{
-                    if (request.status != 200 &&request.status != 0){
-                        var msj = JSON.parse(request.responseText);
-                        alert(msj.mensaje);
-                        loaderLogin.style.display = "none";
-                    }
-                }
-            };
-            request.open("POST", url, true);
-            request.setRequestHeader("Content-type",
-            "application/x-www-form-urlencoded");
-            request.send(sQueryString);
-
-            loaderLogin.style.display = "flex";
-        }
+        var llamada = $.post( // Llamada del post
+            url, {
+                //Datos a enviar
+                cuentaUsuario: cuentaUsuario,
+                contrasenia: contrasenia
+            },
+            function(oDatos) {
+                $('#loaderLogin').css('display','none');
+                procesaLogin(oDatos);
+                console.log(oDatos);
+            }
+        );
+        // Error en la llamada
+        llamada.fail(function(objRequest, status) {
+            alert("Error al invocar al servidor, intente posteriormente");
+            $('#loaderLogin').css('display','none');
+            console.log(status);
+        });
     }
 
     function verificaStorage(nombre, tipoUsuario) {
@@ -86,14 +79,13 @@
         ml.attr("href","#");
         divTexto.hide();
         sectionLogin.hide();
-        sectionRegistrarse.hide()
+        sectionRegistrarse.hide();
         divWelcome1.css("display","flex");
         sectionLogin.hide();
         sectionRegistrarse.hide();
     }
 
-    function procesaLogin(textoRespuesta){
-        var datos = JSON.parse(textoRespuesta);
+    function procesaLogin(datos){
         var divWelcome1=$("#welcome");
         var navmen = $("#sp");
         var logout = $("#logout");
